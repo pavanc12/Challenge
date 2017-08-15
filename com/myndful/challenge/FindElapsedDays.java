@@ -47,7 +47,7 @@ public class FindElapsedDays {
 	long calculateElapsedFullDays(LocalDate startDate, LocalDate endDate) throws Exception {
 		if (startDate.isAfter(endDate))
 			throw new Exception("Start date should be before End date. Please try again.");
-		// Adding 1 day to start date as the Period.between method includes start date but excludes end date
+		// Adding 1 day to start date as the between method includes start date but excludes end date
 		return ChronoUnit.DAYS.between(startDate.plusDays(1), endDate);
 	}
 
