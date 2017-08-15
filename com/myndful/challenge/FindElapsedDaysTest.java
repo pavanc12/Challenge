@@ -1,21 +1,22 @@
 package com.myndful.challenge;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Test;
 
 public class FindElapsedDaysTest 
 {
-	private SimpleDateFormat dateFormat;
+	private FindElapsedDays findElapsedDays;
+	private DateTimeFormatter formatter;
 
 	@Before
 	public void init() 
 	{
-		dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		dateFormat.setLenient(false);
+		findElapsedDays = new FindElapsedDays();
+		formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 	}
 
 	/**
@@ -23,11 +24,11 @@ public class FindElapsedDaysTest
 	 */
 	@Test
 	public void testValidateDate() {
-		Date expected = null;
-		Date actual = null;
+		LocalDate expected = null;
+		LocalDate actual = null;
 		try {
-			expected = dateFormat.parse("12/08/2000");
-			actual = FindElapsedDays.validateDate("12/08/2000");
+			expected = LocalDate.parse("12/08/2000", formatter);
+			actual = findElapsedDays.validateDate("12/08/2000");
 			Assert.assertEquals(expected, actual);
 			System.out.println("testValidateDate # 12/08/2000 : PASSED");
 		} catch (Exception e) {
@@ -40,9 +41,9 @@ public class FindElapsedDaysTest
 	 */
 	@Test
 	public void testInValidDay() {
-		Date actual = null;
+		LocalDate actual = null;
 		try {
-			actual = FindElapsedDays.validateDate("32/10/1986");
+			actual = findElapsedDays.validateDate("32/10/1986");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -55,9 +56,9 @@ public class FindElapsedDaysTest
 	 */
 	@Test
 	public void testInValidDayInLeapYear() {
-		Date actual = null;
+		LocalDate actual = null;
 		try {
-			actual = FindElapsedDays.validateDate("29/02/1987");
+			actual = findElapsedDays.validateDate("29/02/1987");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -70,11 +71,11 @@ public class FindElapsedDaysTest
 	 */
 	@Test
 	public void testValidDayInLeapYear() {
-		Date expected = null;
-		Date actual = null;
+		LocalDate expected = null;
+		LocalDate actual = null;
 		try {
-			expected = dateFormat.parse("29/02/1948");
-			actual = FindElapsedDays.validateDate("29/02/1948");
+			expected = LocalDate.parse("29/02/1948", formatter);
+			actual = findElapsedDays.validateDate("29/02/1948");
 			Assert.assertEquals(expected, actual);
 			System.out.println("testValidDayInLeapYear # 29/02/1948 : PASSED");
 		} catch (Exception e) {
@@ -87,9 +88,9 @@ public class FindElapsedDaysTest
 	 */
 	@Test
 	public void testInValidMonth() {
-		Date actual = null;
+		LocalDate actual = null;
 		try {
-			actual = FindElapsedDays.validateDate("12/15/2000");
+			actual = findElapsedDays.validateDate("12/15/2000");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -105,10 +106,10 @@ public class FindElapsedDaysTest
 	{
 		try 
 		{
-			int expected = 10;
-			int actual = FindElapsedDays.calculateElapsedFullDays("22/10/1944", "02/11/1944");
+			long expected = 10;
+			long actual = findElapsedDays.calculateElapsedFullDays(findElapsedDays.validateDate("22/10/1944"), findElapsedDays.validateDate("02/11/1944"));
 			Assert.assertEquals(expected, actual);
-			System.out.println("testCalculateElapsedFullDays # 22/10/1944 - 02/11/1944 : PASSED");
+			System.out.println("testCalculateElapsedFullDays # 22/10/1944 / 02/11/1944 : PASSED");
 		} 
 		catch (Exception e) 
 		{
@@ -123,18 +124,18 @@ public class FindElapsedDaysTest
 	@Test
 	public void testCalculateElapsedFullDays_StartDateAfter() 
 	{
-		int expected = 1;
-		int actual = -1;
+		long expected = 1;
+		long actual = -1;
 		try 
 		{
-			actual = FindElapsedDays.calculateElapsedFullDays("22/02/2045", "02/11/2044");
+			actual = findElapsedDays.calculateElapsedFullDays(findElapsedDays.validateDate("22/02/2045"), findElapsedDays.validateDate("02/11/2044"));
 		} 
 		catch (Exception e) 
 		{
 			System.err.println(e.getMessage());
 		}
 		Assert.assertNotEquals(expected, actual);
-		System.out.println("testCalculateElapsedFullDays_StartDateAfter # 22/02/2045 - 02/11/2044 : PASSED");
+		System.out.println("testCalculateElapsedFullDays_StartDateAfter # 22/02/2045 / 02/11/2044 : PASSED");
 	}
 	
 	/**
@@ -143,10 +144,10 @@ public class FindElapsedDaysTest
 	@Test
 	public void testCalculateElapsedFullDays_0() {
 		try {
-			int expected = 0;
-			int actual = FindElapsedDays.calculateElapsedFullDays("07/11/1972", "08/11/1972");
+			long expected = 0;
+			long actual = findElapsedDays.calculateElapsedFullDays(findElapsedDays.validateDate("07/11/1972"), findElapsedDays.validateDate("08/11/1972"));
 			Assert.assertEquals(expected, actual);
-			System.out.println("testCalculateElapsedFullDays_0 # 07/11/1972 - 08/11/1972 : PASSED");
+			System.out.println("testCalculateElapsedFullDays_0 # 07/11/1972 / 08/11/1972 : PASSED");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 
@@ -159,10 +160,10 @@ public class FindElapsedDaysTest
 	@Test
 	public void testCalculateElapsedFullDays_1() {
 		try {
-			int expected = 1;
-			int actual = FindElapsedDays.calculateElapsedFullDays("01/01/2000", "03/01/2000");
+			long expected = 1;
+			long actual = findElapsedDays.calculateElapsedFullDays(findElapsedDays.validateDate("01/01/2000"), findElapsedDays.validateDate("03/01/2000"));
 			Assert.assertEquals(expected, actual);
-			System.out.println("testCalculateElapsedFullDays_1 # 01/01/2000 - 03/01/2000 : PASSED");
+			System.out.println("testCalculateElapsedFullDays_1 # 01/01/2000 / 03/01/2000 : PASSED");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -174,10 +175,10 @@ public class FindElapsedDaysTest
 	@Test
 	public void testCalculateElapsedFullDays_19() {
 		try {
-			int expected = 19;
-			int actual = FindElapsedDays.calculateElapsedFullDays("02/06/1983", "22/06/1983");
+			long expected = 19;
+			long actual = findElapsedDays.calculateElapsedFullDays(findElapsedDays.validateDate("02/06/1983"), findElapsedDays.validateDate("22/06/1983"));
 			Assert.assertEquals(expected, actual);
-			System.out.println("testCalculateElapsedFullDays_19 # 02/06/1983 - 22/06/1983 : PASSED");
+			System.out.println("testCalculateElapsedFullDays_19 # 02/06/1983 / 22/06/1983 : PASSED");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -189,10 +190,10 @@ public class FindElapsedDaysTest
 	@Test
 	public void testCalculateElapsedFullDays_173() {
 		try {
-			int expected = 173;
-			int actual = FindElapsedDays.calculateElapsedFullDays("04/07/1984", "25/12/1984");
+			long expected = 173;
+			long actual = findElapsedDays.calculateElapsedFullDays(findElapsedDays.validateDate("04/07/1984"), findElapsedDays.validateDate("25/12/1984"));
 			Assert.assertEquals(expected, actual);
-			System.out.println("testCalculateElapsedFullDays_173 # 04/07/1984 - 25/12/1984 : PASSED");
+			System.out.println("testCalculateElapsedFullDays_173 # 04/07/1984 / 25/12/1984 : PASSED");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -206,10 +207,10 @@ public class FindElapsedDaysTest
 	{
 		try 
 		{
-			int expected = 1979;
-			int actual = FindElapsedDays.calculateElapsedFullDays("03/08/1983", "03/01/1989");
+			long expected = 1979;
+			long actual = findElapsedDays.calculateElapsedFullDays(findElapsedDays.validateDate("03/08/1983"), findElapsedDays.validateDate("03/01/1989"));
 			Assert.assertEquals(expected, actual);
-			System.out.println("testCalculateElapsedFullDays_1979 # 03/08/1983 - 03/01/1989 : PASSED");
+			System.out.println("testCalculateElapsedFullDays_1979 # 03/08/1983 / 03/01/1989 : PASSED");
 		} 
 		catch (Exception e) 
 		{
