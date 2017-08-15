@@ -1,6 +1,6 @@
 # Find Elapsed Days between two given dates
 
-An application to calculate the full elapsed days between any two given dates excluding the given dates. Application accepts input from command-Line/Terminal and GUI.
+An application to calculate the full elapsed days between any two given dates excluding the given dates. Application accepts input from command-Line/Terminal.
 
 ## PROBLEM
 You have joined a science project as the latest team member. Scientists on the project are running a series of experiments and need to calculate the number of full days elapsed in between the experiment’s start and end dates, i.e. the first and the last day are considered partial days and never counted. Following this logic, an experiment that has run from 07/11/1972 and 08/11/1972 should return 0, because there are no fully elapsed days contained in between those dates, and 01/01/2000 to 03/01/2000 should return 1. The solution needs to cater for all valid dates between 01/01/1901 and 31/12/2999.
@@ -12,20 +12,14 @@ You have joined a science project as the latest team member. Scientists on the p
 
 ## Getting Started
 
-To compile and run the application and tests on your local machine, download the Source (com) to a local directory on your local machine. JUnit Test cases are also included.
-
-To run application without compiling, Download the following Executable jar to your local machine.
-
-```
-FindElapsedDays.jar
-```
+To compile and run the application and tests on your local machine, download the Source (com) to a local directory on your local machine. JUnit Test cases are also included. Alternatively you can download the project to IDE like Eclipse or IntelliJ Idea.
 
 ### Pre-requisites
 
-To run the application you need Java Runtime Environment on your local machine which can be downloaded from the below link.
+To run the application you need Java Runtime Environment 8 on your local machine which can be downloaded from the below link.
 * [JRE Download](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
-To compile the application you need Java Development Kit on your local machine which can be downloaded from the below link.
+To compile the application you need Java Development Kit 8 on your local machine which can be downloaded from the below link.
 * [JDK Download](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 To run the tests you need JUnit which can be downloaded and installed from the below link. Alternatively you can include following JARs in your test classpath:
@@ -45,11 +39,9 @@ $ javac com/myndful/challenge/FindElapsedDays.java
 
 ## Running the application
 
-### Command-Line or Terminal
-
 1. Open Command-Line or Terminal on you local machine.
-2. Change the directory to parent directory of the extracted FindElapsedDays.zip file.
-3. You can input Start date and End date in Command-Line or Terminal. Both dates should be in DD/MM/YYYY format and ensure Start date is before End date for correct result.
+2. Change the directory to parent directory of the source.
+3. Input Start date and End date in Command-Line or Terminal. Both dates should be in DD/MM/YYYY format and ensure Start date is before End date for correct result.
 4. Run the application as below.
 
 ```
@@ -59,21 +51,6 @@ Result:
 
 Full days elapsed between 01/02/2011 and 15/02/2011 : 13
 ```
-
-5. You can also run application without input arguments as below which will request to input GUI
-
-```
-$ java com/myndful/challenge/FindElapsedDays
-```
-
-### Executable jar
-
-1. Double click the downloaded FindElapsedDays.jar file to run the application.
-2. A GUI pop-up will prompt to input Start date. Enter start date and click OK.
-3. Another GUI pop-up will prompt to input End date. Enter end date and click OK.
-4. Elapsed days between the two given dates will be shown in GUI message.
-
-Note: Ensure Start date is before End date for the correct result.
 
 ## Running the tests
 
@@ -99,7 +76,7 @@ Note: All the test cases mentioned in the problem statement along with some addi
 
 ## Built With
 
-* [JAVA](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* [JAVA 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
 ## Authors
 
